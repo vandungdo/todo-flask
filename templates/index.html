@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+</head>
+<style>
+    body{
+        background-image: url('/static/images/bg2.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 60% 100%;
+        background-position: right;
+        animation: mymove 20s infinite;
+        /* background-color: burlywood; */
+        
+    }
+    @keyframes mymove {
+        from {background-color: rgb(226, 151, 222);}
+        to {background-color: rgb(114, 114, 230);}
+        }
+       
+    
+</style>
+<body>
+    <h1 style="text-align: center;color:blue">To-do App </h1>
+    <h2 style="text-align: center;" >{{ time }} </h2>
+
+  
+    <div>
+        <!-- <p style="color: green;font-size: 20px;">Add things to do</p> -->
+        <!-- <br> -->
+        <form action="{{url_for('add')}}" method="POST">
+            <label for="enter_thing" style="color: green;font-size: 20px;font-weight:bold;">Add things to do</label>
+            <input type="text" id="enter_thing" name="thing">
+            <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <br><br>
+
+    <div> 
+        <h3 style="color: green;font-size: 20px;">Things need to be done!</h3>
+        <br>
+        
+        <ul>
+            {% for thing in thingToDo %}
+            <li style="font-size: 15pt;font-family: URW Chancery L;">
+                {{ thing.thing }} <a href="{{url_for('complete',id=thing.id)}}" style="font-size: 10pt">complete</a>
+            </li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+    <div>
+        <form action="{{ url_for('resetTodo') }}">
+            <button style="background-color: red;color: white;">delete</button>
+        </form>
+    </div>
+    <br>
+    <p>***---------------------------------------------------------------------------***</p>
+    <br>
+    <div> 
+        <h3 style="color: green;font-size: 20px;">Things have been done!</h3>
+        <ul>
+            {% for complete in thingCompleted %}
+            <li style="font-size: 15pt">{{complete.thing}}</li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+
+    <div>
+        <form action="{{ url_for('resetComplete') }}">
+            <button style="background-color: red;color: white;">delete</button>
+        </form>
+    </div>
+    
+    
+</body>
+</html>
